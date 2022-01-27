@@ -6,7 +6,10 @@ const {
 } = require('express-handlebars');
 const hbs = create({
   layoutsDir: __dirname + '/views',
-  partialsDir: __dirname + '/views/components'
+  partialsDir: __dirname + '/views/components',
+  helpers: {
+    bienvenida: () => 'Bienvenido al mercado WEB, seleccione sus productos'
+  }
 })
 
 app.listen(3000, () => {
@@ -20,7 +23,7 @@ app.set('view engine', 'handlebars')
 // bootstrap
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
 
-//img
+//src
 app.use('/src', express.static(__dirname + '/src'))
 
 //axios
@@ -75,11 +78,6 @@ app.put('/producto/:nombreProducto', (req, res) => {
     })
 
     console.log(productosCart);
-
-    res.render('components/Modal', {
-      layout: false,
-      productosCart: productosCart
-    })
 
   })
 
